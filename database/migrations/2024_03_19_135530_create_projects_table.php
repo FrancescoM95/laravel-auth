@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 50)->unique();
             $table->string('slug')->unique();
-            $table->text('content');
+            $table->text('content', 50);
             $table->string('programming_language');
             $table->timestamps();
             $table->softDeletes();
