@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Guest\HomeController as GuestHomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,13 +17,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('guest.home');
+Route::get('/', GuestHomeController::class)->name('guest.home');
+
+Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
+
+    //* Rotta Admin home
+    Route::get('', AdminHomeController::class)->name('home');
+
+    //* Rotte admin project
+    Route::resource('projects', ProjectController::class);
 });
 
-Route::get('/dashboard', function () {
-    return view('admin.home');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+//* Rotte profilo
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
