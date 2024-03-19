@@ -13,7 +13,7 @@
             <th scope="col">Titolo</th>
             <th scope="col">Slug</th>
             <th scope="col">Descrizione</th>
-            <th scope="col">Linguaggio di programmazione</th>
+            <th scope="col">Linguaggio</th>
             <th scope="col">Creato il</th>
             <th scope="col">Ultima modifica</th>
             <th scope="col"></th>
@@ -36,7 +36,12 @@
                 </td>
               </tr>
             @empty
-                
+               <tr>
+                <td>
+                  <h3>Non ci sono progetti.</h3>
+                </td>
+               </tr>
+            
             @endforelse
           
         </tbody>
