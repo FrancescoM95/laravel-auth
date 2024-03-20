@@ -24,7 +24,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('projects.create');
     }
 
     /**
@@ -32,7 +32,22 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string',
+            'content' => 'required|string',
+        ]);
+
+        $data = $request->all();
+
+        $project = new Project();
+
+        $project->fill($data);
+
+        $project->save();
+
+        return to_route('projects.show', $project->id)
+            ->with('type', 'success')
+            ->with('message', "Post creato correttamente.");
     }
 
     /**
@@ -48,7 +63,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('projects.edit', compact('project'));
     }
 
     /**
@@ -56,7 +71,18 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $request->validate([
+            'title' => 'required|string',
+            'content' => 'required|string',
+        ]);
+
+        $data = $request->all();
+
+        $project->update($data);
+
+        return to_route('projects.show', $project->id)
+            ->with('type', 'success')
+            ->with('message', "Post modificato correttamente.");
     }
 
     /**
@@ -66,6 +92,33 @@ class ProjectController extends Controller
     {
         $project->delete();
 
-        return to_route('admin.projects.index')->with('type', 'success')->with('message', 'Progetto eliminato con successo.');
+        return to_route('admin.projects.index')->with('type', 'warning')->with('message', 'Progetto spostato nel cestino.');
+    }
+
+    // # SOFT DELETE
+
+    public function trash()
+    {
+        $projects = Project::onlyTrashed()->get();
+
+        return view('admin.projects.trash', compact('projects'));
+    }
+
+    public function restore(project $project)
+    {
+        $project->restore();
+
+        return to_route('admin.projects.trash')
+            ->with('type', 'success')
+            ->with('message', "Progetto ripristinato con successo!");
+    }
+
+    public function drop(project $project)
+    {
+        $project->forceDelete();
+
+        return to_route('admin.projects.trash')
+            ->with('type', 'danger')
+            ->with('message', "Progetto eliminato definitivamente!");
     }
 }

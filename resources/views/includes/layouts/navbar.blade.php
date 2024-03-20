@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-md shadow-sm bg-dark border-bottom border-body" data-bs-theme="dark">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
             <div class="logo_laravel">
@@ -19,7 +19,10 @@
                 </li>
                 @auth
                 <li class="nav-item">
-                    <a class="nav-link @if (Request::is('admin/projects*')) active @endif" href="{{ route('admin.projects.index') }}">Projects</a>
+                    <a class="nav-link @if (Route::is('admin.projects.index'))  active @endif" href="{{ route('admin.projects.index') }}">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @if (Route::is('admin.projects.trash')) active @endif" href="{{ route('admin.projects.trash') }}">Cestino</a>
                 </li>
                 @endauth
             </ul>

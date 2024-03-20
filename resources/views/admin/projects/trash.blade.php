@@ -1,11 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Projects')
+@section('title', 'Cestino')
 
 @section('content')
+
     <div class="d-flex justify-content-between align-items-center">
-      <h1 class="py-3">Projects</h1>
-      <a href="{{route('admin.projects.trash')}}" class="btn btn-danger">Cestino</a>
+        <h1 class="py-3">Cestino</h1>
+        <a href="{{route('admin.projects.index')}}" class="btn btn-primary">Lista Progetti</a>
     </div>
 
     <table class="table table-striped table-hover">
@@ -33,13 +34,15 @@
                 <td>{{ $project->updated_at }}</td>
                 <td>
                   <div class="d-flex gap-2">
-                    <a href="{{ route('admin.projects.show', $project)}}" class="btn btn-sm btn-primary">
-                      <i class="far fa-eye"></i>
-                    </a>
-                    <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" id="delete-form">
-                      @csrf
-                      @method('DELETE')
-                      <button class="btn btn-sm btn-danger"><i class="far fa-trash-can"></i></button>
+                    <form action="{{ route('admin.projects.restore', $project->id) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn btn-success"><i class="fa-solid fa-rotate-left"></i></button>
+                    </form>
+                    <form action="{{ route('admin.projects.drop', $project->id) }}" method="POST" id="delete-form">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
                     </form>
                   </div>
                 </td>
@@ -64,7 +67,7 @@
         deleteForm.addEventListener('submit', e => {
             e.preventDefault();
 
-            const confirmation = confirm('Sei sicuro di voler spostare questo progetto nel cestino?');
+            const confirmation = confirm('Sei sicuro di voler eliminare definitivamente questo progetto?');
 
             if(confirmation) deleteForm.submit();
         });
