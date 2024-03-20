@@ -31,7 +31,7 @@
                 <td>{{ $project->title }}</td>
                 <td>{{ $project->slug }}</td>
                 <td>{{ $project->content }}</td>
-                <td>{{ $project->programming_language }}</td>
+                <td>{{ $project->programming_languages }}</td>
                 <td>{{ $project->created_at }}</td>
                 <td>{{ $project->updated_at }}</td>
                 <td>

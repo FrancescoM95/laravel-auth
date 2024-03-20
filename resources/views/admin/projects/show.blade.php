@@ -17,7 +17,7 @@
           <p class="card-text">{{ $project->content }}</p>
           <div>
             <strong>Linguaggi di programmazione:</strong>
-            {{ $project->programming_language }}.
+            {{ $project->programming_languages }}.
           </div>
 
           <div class="d-flex flex-column align-items-end gap-2">
@@ -56,7 +56,7 @@
         deleteForm.addEventListener('submit', e => {
             e.preventDefault();
 
-            const confirmation = confirm('Sei sicuro di voler eliminare questo progetto?');
+            const confirmation = confirm('Sei sicuro di voler spostare questo progetto nel cestino?');
 
             if(confirmation) deleteForm.submit();
         });

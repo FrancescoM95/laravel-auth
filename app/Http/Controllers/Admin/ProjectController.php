@@ -25,7 +25,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $project = new Project();
+        return view('admin.projects.create', compact('project'));
     }
 
     /**
@@ -34,22 +35,26 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|unique',
+            'title' => ['required', 'string', Rule::unique('projects')],
             'content' => 'required|string',
+            'programming_languages' => 'nullable|array',
         ]);
 
         $data = $request->all();
 
         $project = new Project();
 
+        $programmingLanguages = $request->input('programming_languages', []);
+        $data['programming_languages'] = implode(',', $programmingLanguages);
+
         $project->fill($data);
         $project->slug = Str::slug($project->title);
 
         $project->save();
 
-        return to_route('admin.projects.show', $project->id)
+        return redirect()->route('admin.projects.show', $project->id)
             ->with('type', 'success')
-            ->with('message', "Post creato correttamente.");
+            ->with('message', 'Progetto creato correttamente.');
     }
 
     /**
@@ -76,9 +81,13 @@ class ProjectController extends Controller
         $request->validate([
             'title' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
             'content' => 'required|string',
+            'programming_languages' => 'nullable|array',
         ]);
 
         $data = $request->all();
+
+        $programmingLanguages = $request->input('programming_languages', []);
+        $data['programming_languages'] = implode(',', $programmingLanguages);
 
         $project->update($data);
 

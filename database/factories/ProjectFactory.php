@@ -17,13 +17,17 @@ class ProjectFactory extends Factory
      */
     public function definition(): array
     {
-        $title = fake()->text(20);
+        $title = $this->faker->text(20);
+
+        $programmingLanguages = $this->faker->randomElements(['HTML', 'CSS', 'JavaScript', 'PHP'], rand(1, 4));
+
+        $programmingLanguagesString = implode(',', $programmingLanguages);
 
         return [
             'title' => $title,
             'slug' => Str::slug($title),
-            'content' => fake()->paragraph(15, true),
-            'programming_language' => fake()->randomElement(['HTML', 'CSS', 'JS', 'PHP']),
+            'content' => $this->faker->paragraph(15, true),
+            'programming_languages' => $programmingLanguagesString,
         ];
     }
 }

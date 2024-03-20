@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-md shadow-sm bg-dark border-bottom border-body" data-bs-theme="dark">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
-            <div class="logo_laravel">
+            <img src="{{ Vite::asset('resources/img/logo.png') }}" alt="{{ config('app.name') }}" width="30">
+            <div class="logo_laravel ms-2">
                {{ config('app.name') }}
             </div>
             {{-- config('app.name', 'Laravel') --}}
