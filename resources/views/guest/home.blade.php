@@ -19,7 +19,7 @@
                 <p class="card-text mb-1"><strong>Data creazione:</strong> {{ $project->getCreatedAt() }}</p>
                 <p class="card-text mb-1"><strong>Ultima modifica:</strong>  {{ $project->getUpdatedAt() }}</p>
             </div>
-            <a href="{{ route('guest.projects.show', $project->id)}}" class="btn btn-sm btn-outline-info">
+            <a href="{{ route('guest.projects.show', $project->slug)}}" class="btn btn-sm btn-outline-info">
                 Vedi dettagli
              </a>
         </div>
