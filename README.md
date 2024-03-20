@@ -1,5 +1,7 @@
 # Esercizio di oggi: **Laravel Boolfolio - Base**
 
+19/03/2024
+
 nome repo: `laravel-auth`
 
 Creiamo con Laravel il nostro sistema di gestione del nostro Portfolio di progetti.
@@ -37,3 +39,23 @@ Per oggi occupiamoci  solo di index,  show e destroy!
 - Nascondiamo il link ai progetti per chi non è loggato.
 
 Mettete tanta cura perchè questo potrà poi essere il vostro portfolio personale! :)
+
+---
+
+# Esercizio di oggi: **Laravel Boolfolio - Base**
+
+20/03/2024
+
+nome repo: `laravel-auth`  (stessa di ieri)
+
+## Descrizione
+
+- Completiamo le CRUD mancanti per il vostro sito portfolio!
+
+### BONUS
+
+- Tutte le cosette varie che abbiamo visto in classe!
+
+### SUPER BONUS
+
+- Implementare la modale di bootstrap per la cancellazione
