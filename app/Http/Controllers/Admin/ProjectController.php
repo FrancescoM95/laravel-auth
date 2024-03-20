@@ -34,11 +34,19 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => ['required', 'string', Rule::unique('projects')],
-            'content' => 'required|string',
-            'programming_languages' => ['required', 'array', 'min:1'],
-        ]);
+        $request->validate(
+            [
+                'title' => ['required', 'string', Rule::unique('projects')],
+                'content' => 'required|string',
+                'programming_languages' => ['required', 'array', 'min:1'],
+            ],
+            [
+                'title.required' => 'Il titolo è obbligatorio.',
+                'title.unique' => 'Non possono esistere due progetti con lo stesso titolo.',
+                'content.required' => 'La descrizione è obbligatoria.',
+                'programming_languages.required' => 'È necessario indicare alemno un linguaggio di programmazione.',
+            ]
+        );
 
         $data = $request->all();
 
@@ -78,11 +86,19 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        $request->validate([
-            'title' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
-            'content' => 'required|string',
-            'programming_languages' => ['required', 'array', 'min:1'],
-        ]);
+        $request->validate(
+            [
+                'title' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
+                'content' => 'required|string',
+                'programming_languages' => ['required', 'array', 'min:1'],
+            ],
+            [
+                'title.required' => 'Il titolo è obbligatorio.',
+                'title.unique' => 'Non possono esistere due progetti con lo stesso titolo.',
+                'content.required' => 'La descrizione è obbligatoria.',
+                'programming_languages.required' => 'È necessario indicare alemno un linguaggio di programmazione.',
+            ]
+        );
 
         $data = $request->all();
 
