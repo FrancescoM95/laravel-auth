@@ -26,7 +26,7 @@ class ProjectFactory extends Factory
         return [
             'title' => $title,
             'slug' => Str::slug($title),
-            'content' => $this->faker->paragraph(15, true),
+            'content' => $this->faker->paragraph(10, true),
             'programming_languages' => $programmingLanguagesString,
         ];
     }

@@ -11,14 +11,14 @@
       </div>
     </div>
 
-    <table class="table table-striped table-hover">
+    <table class="table table-striped table-hover mb-5">
         <thead>
           <tr>
             <th scope="col">#</th>
             <th scope="col">Titolo</th>
             <th scope="col">Slug</th>
             <th scope="col">Descrizione</th>
-            <th scope="col">Linguaggio</th>
+            <th scope="col">Linguaggi di Programmazione</th>
             <th scope="col">Data creazione</th>
             <th scope="col">Ultima modifica</th>
             <th scope="col"></th>
@@ -32,8 +32,8 @@
                 <td>{{ $project->slug }}</td>
                 <td>{{ $project->content }}</td>
                 <td>{{ $project->programming_languages }}</td>
-                <td>{{ $project->created_at }}</td>
-                <td>{{ $project->updated_at }}</td>
+                <td>{{ $project->getCreatedAt() }}</td>
+                <td>{{ $project->getUpdatedAt() }}</td>
                 <td>
                   <div class="d-flex gap-2">
                     <a href="{{ route('admin.projects.show', $project->id)}}" class="btn btn-sm btn-primary">
@@ -47,14 +47,13 @@
                       @method('DELETE')
                       <button class="btn btn-sm btn-danger"><i class="far fa-trash-can"></i></button>
                     </form>
-                    
                   </div>
                 </td>
               </tr>
             @empty
                <tr>
-                <td>
-                  <h3>Non ci sono progetti.</h3>
+                <td colspan="8">
+                  <h3 class="text-center">Non ci sono progetti.</h3>
                 </td>
                </tr>
             

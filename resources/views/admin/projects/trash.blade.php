@@ -49,8 +49,8 @@
               </tr>
             @empty
                <tr>
-                <td>
-                  <h3>Non ci sono progetti.</h3>
+                <td colspan="8">
+                  <h3 class="text-center">Non ci sono progetti.</h3>
                 </td>
                </tr>
             @endforelse

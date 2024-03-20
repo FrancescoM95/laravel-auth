@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('title', 50)->unique();
             $table->string('slug')->unique();
             $table->text('content', 50);
-            $table->string('programming_languages')->nullable();
-            $table->timestamps();
+            $table->string('programming_languages');
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 

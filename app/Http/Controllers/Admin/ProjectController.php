@@ -37,7 +37,7 @@ class ProjectController extends Controller
         $request->validate([
             'title' => ['required', 'string', Rule::unique('projects')],
             'content' => 'required|string',
-            'programming_languages' => 'nullable|array',
+            'programming_languages' => ['required', 'array', 'min:1'],
         ]);
 
         $data = $request->all();
@@ -81,7 +81,7 @@ class ProjectController extends Controller
         $request->validate([
             'title' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
             'content' => 'required|string',
-            'programming_languages' => 'nullable|array',
+            'programming_languages' => ['required', 'array', 'min:1'],
         ]);
 
         $data = $request->all();
@@ -103,7 +103,7 @@ class ProjectController extends Controller
     {
         $project->delete();
 
-        return to_route('admin.projects.index')->with('type', 'warning')->with('message', 'Progetto spostato nel cestino.');
+        return to_route('admin.projects.index')->with('type', 'info')->with('message', 'Progetto spostato nel cestino.');
     }
 
     // # SOFT DELETE
