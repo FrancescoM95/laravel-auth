@@ -3,7 +3,8 @@
 @section('title', 'Home')
 
 @section('content')
-<div class="row g-5 py-5">
+<h1 class="py-3">Projects</h1>
+<div class="row g-5 py-3">
     @forelse ($projects as $project)
     <div class="col-4">
         <div class="card">
@@ -15,9 +16,12 @@
             </div>
             <div class="card-footer">
                 <p class="card-text mb-1"><strong>Stack:</strong> {{ $project->programming_languages }}.</p>
-                <p class="card-text mb-1"><strong>Data creazione:</strong> {{ $project->created_at }}</p>
-                <p class="card-text mb-1"><strong>Ultima modifica:</strong> {{ $project->updated_at }}</p>
+                <p class="card-text mb-1"><strong>Data creazione:</strong> {{ $project->getCreatedAt() }}</p>
+                <p class="card-text mb-1"><strong>Ultima modifica:</strong>  {{ $project->getUpdatedAt() }}</p>
             </div>
+            <a href="{{ route('guest.projects.show', $project->id)}}" class="btn btn-sm btn-outline-info">
+                Vedi dettagli
+             </a>
         </div>
     </div>
     @empty

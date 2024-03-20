@@ -3,7 +3,14 @@
 @section('title', 'Home')
 
 @section('content')
-<div class="row g-5 py-5">
+<div class="d-flex justify-content-between align-items-center">
+    <h1 class="py-3">Projects</h1>
+    <div>
+      <a href="{{route('admin.projects.create')}}" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Aggiungi progetto</a>
+      <a href="{{route('admin.projects.trash')}}" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Cestino</a>
+    </div>
+  </div>
+<div class="row g-5 py-3">
     @forelse ($projects as $project)
     <div class="col-4">
         <div class="card">
@@ -15,9 +22,9 @@
             </div>
             <div class="card-footer">
                 <p class="card-text mb-1"><strong>Stack:</strong> {{ $project->programming_languages }}.</p>
-                <p class="card-text mb-1"><strong>Data creazione:</strong> {{ $project->created_at }}</p>
-                <p class="card-text mb-1"><strong>Ultima modifica:</strong> {{ $project->updated_at }}</p>
-                <div class="d-flex justify-content-end gap-2 mt-2">
+                <p class="card-text mb-1"><strong>Data creazione:</strong>  {{ $project->getCreatedAt() }}</p>
+                <p class="card-text mb-1"><strong>Ultima modifica:</strong> {{ $project->getUpdatedAt() }}</p>
+                <div class="d-flex justify-content-end gap-2 mt-3">
                     <a href="{{ route('admin.projects.show', $project->id)}}" class="btn btn-sm btn-primary">
                       <i class="far fa-eye"></i>
                     </a>
@@ -29,7 +36,7 @@
                       @method('DELETE')
                       <button class="btn btn-sm btn-danger"><i class="far fa-trash-can"></i></button>
                     </form>
-                  </div>
+                  </div>    
             </div>
         </div>
     </div>

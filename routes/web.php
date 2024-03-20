@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
-use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\Guest\HomeController as GuestHomeController;
+use App\Http\Controllers\Guest\ProjectController as GuestProjectController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,23 +18,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//# ROTTE GUEST
 Route::get('/', GuestHomeController::class)->name('guest.home');
 
+Route::get('/projects/{project}', [GuestProjectController::class, 'show'])->name('guest.projects.show');
 
 
-
+//# ROTTE ADMIN
 Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
 
-    //* Rotta Admin home
+
     Route::get('', AdminHomeController::class)->name('home');
 
-    Route::get('/projects/trash', [ProjectController::class, 'trash'])->name('projects.trash');
-    Route::patch('/projects/{project}/restore', [ProjectController::class, 'restore'])->name('projects.restore')->withTrashed();
-    Route::delete('/projects/{project}/drop', [ProjectController::class, 'drop'])->name('projects.drop')->withTrashed();
-
+    //* Rotta Admin post
+    Route::get('/projects/trash', [AdminProjectController::class, 'trash'])->name('projects.trash');
+    Route::patch('/projects/{project}/restore', [AdminProjectController::class, 'restore'])->name('projects.restore')->withTrashed();
+    Route::delete('/projects/{project}/drop', [AdminProjectController::class, 'drop'])->name('projects.drop')->withTrashed();
 
     //* Rotte admin project
-    Route::resource('projects', ProjectController::class);
+    Route::resource('projects', AdminProjectController::class);
 });
 
 

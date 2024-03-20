@@ -30,18 +30,20 @@
                 <td>{{ $project->slug }}</td>
                 <td>{{ $project->content }}</td>
                 <td>{{ $project->programming_languages }}</td>
-                <td>{{ $project->created_at }}</td>
-                <td>{{ $project->updated_at }}</td>
+                <td>{{ $project->getUpdatedAt() }}</td>
+                <td>{{ $project->getUpdatedAt() }}</td>
                 <td>
-                  <div class="d-flex gap-2">
+                  <div class="d-flex gap-2 justify-content-end">
                     <form action="{{ route('admin.projects.restore', $project->id) }}" method="POST">
                         @csrf
                         @method('PATCH')
                         <button type="submit" class="btn btn-success btn-sm"><i class="fa-solid fa-rotate-left"></i></button>
                     </form>
-                    <a href="{{ route('admin.projects.edit', $project->id)}}" class="btn btn-sm btn-secondary">
+                    {{-- TODO modifica da cestino--}}
+                    {{--  <a href="{{ route('admin.projects.edit', $project->id)}}" class="btn btn-sm btn-secondary">
                       <i class="fa-solid fa-pencil"></i>
-                    </a>
+                    </a> 
+                    --}}
                     <form action="{{ route('admin.projects.drop', $project->id) }}" method="POST" id="delete-form">
                         @csrf
                         @method('DELETE')

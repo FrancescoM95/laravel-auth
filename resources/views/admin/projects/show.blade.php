@@ -23,11 +23,11 @@
           <div class="d-flex flex-column align-items-end gap-2">
             <div>
                 <strong>Data creazione:</strong>
-                {{ $project->created_at }}
+                {{ $project->getCreatedAt() }}
             </div>
             <div>
                 <strong>Data ultima modifica:</strong>
-                {{ $project->updated_at }}
+                {{ $project->getUpdatedAt() }}
             </div>
           </div>
 

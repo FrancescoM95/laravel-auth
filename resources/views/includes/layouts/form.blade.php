@@ -7,7 +7,7 @@
 
 @csrf
 <div class="row g-4 justify-content-end py-5">
-    <div class="col-8">
+    <div class="col-5">
         <label for="title" class="form-label">Titolo</label>
         <input type="text" class="form-control @error('title') is-invalid @elseif(old('title', '')) is-valid @enderror" id="title" name="title" placeholder="Inserisci titolo" value="{{old('title', $project->title)}}">
         @error('title')
@@ -21,6 +21,10 @@
         @enderror
     </div>
     <div class="col-4">
+        <label for="slug" class="form-label">Slug</label>
+        <input type="text" class="form-control" id="slug" value="{{ Str::slug(old('title', $project->title)) }}" disabled>
+    </div>
+    <div class="col-3">
         <label for="title" class="form-label">Linguaggi di Programmazione</label>
         <div class="form-group d-flex gap-3">
             <div class="form-check">
