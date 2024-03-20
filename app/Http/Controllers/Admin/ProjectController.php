@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
-
 
 class ProjectController extends Controller
 {
@@ -24,7 +25,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('projects.create');
+        return view('admin.projects.create');
     }
 
     /**
@@ -33,7 +34,7 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string',
+            'title' => 'required|string|unique',
             'content' => 'required|string',
         ]);
 
@@ -42,10 +43,11 @@ class ProjectController extends Controller
         $project = new Project();
 
         $project->fill($data);
+        $project->slug = Str::slug($project->title);
 
         $project->save();
 
-        return to_route('projects.show', $project->id)
+        return to_route('admin.projects.show', $project->id)
             ->with('type', 'success')
             ->with('message', "Post creato correttamente.");
     }
@@ -63,7 +65,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('projects.edit', compact('project'));
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
@@ -72,7 +74,7 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $request->validate([
-            'title' => 'required|string',
+            'title' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
             'content' => 'required|string',
         ]);
 
@@ -80,9 +82,9 @@ class ProjectController extends Controller
 
         $project->update($data);
 
-        return to_route('projects.show', $project->id)
+        return to_route('admin.projects.show', $project->id)
             ->with('type', 'success')
-            ->with('message', "Post modificato correttamente.");
+            ->with('message', "Progetto modificato correttamente.");
     }
 
     /**

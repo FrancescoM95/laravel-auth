@@ -19,7 +19,7 @@
                 </li>
                 @auth
                 <li class="nav-item">
-                    <a class="nav-link @if (Route::is('admin.projects.index'))  active @endif" href="{{ route('admin.projects.index') }}">Projects</a>
+                    <a class="nav-link @if (Request::is('admin/projects*')) active @endif" href="{{ route('admin.projects.index') }}">Projects</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link @if (Route::is('admin.projects.trash')) active @endif" href="{{ route('admin.projects.trash') }}">Cestino</a>

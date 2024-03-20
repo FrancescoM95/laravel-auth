@@ -37,12 +37,12 @@
                     <form action="{{ route('admin.projects.restore', $project->id) }}" method="POST">
                         @csrf
                         @method('PATCH')
-                        <button type="submit" class="btn btn-success"><i class="fa-solid fa-rotate-left"></i></button>
+                        <button type="submit" class="btn btn-success btn-sm"><i class="fa-solid fa-rotate-left"></i></button>
                     </form>
                     <form action="{{ route('admin.projects.drop', $project->id) }}" method="POST" id="delete-form">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
+                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa-regular fa-trash-can"></i></button>
                     </form>
                   </div>
                 </td>
@@ -53,9 +53,7 @@
                   <h3>Non ci sono progetti.</h3>
                 </td>
                </tr>
-            
             @endforelse
-          
         </tbody>
       </table>
 @endsection

@@ -4,7 +4,12 @@
 
 @section('content')
 
-    <h1 class="py-3">Project</h1>
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="py-3">Projects</h1>
+      <div>
+        <a href="{{route('admin.projects.index')}}" class="btn btn-primary">Torna alla lista</a>
+      </div>
+    </div>
 
     <div class="card">
         <div class="card-body">
@@ -26,13 +31,18 @@
             </div>
           </div>
 
-          <div class="d-flex justify-content-between mt-4">
-            <a href="{{route('admin.projects.index')}}" class="btn btn-primary">Torna indietro</a>
-            <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" id="delete-form">
-              @csrf
-              @method('DELETE')
-              <button class="btn btn-danger">Elimina</button>
-            </form>
+          <div class="d-flex justify-content-end mt-4">
+            <div class="d-flex gap-2">
+              <a href="{{ route('admin.projects.edit', $project->id)}}" class="btn btn-secondary">
+                Modifica
+              </a>
+              <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" id="delete-form">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger">Elimina</button>
+              </form>
+            </div>
+            
           </div>
           
         </div>

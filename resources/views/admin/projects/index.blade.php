@@ -5,7 +5,10 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-center">
       <h1 class="py-3">Projects</h1>
-      <a href="{{route('admin.projects.trash')}}" class="btn btn-danger">Cestino</a>
+      <div>
+        <a href="{{route('admin.projects.create')}}" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Aggiungi progetto</a>
+        <a href="{{route('admin.projects.trash')}}" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Cestino</a>
+      </div>
     </div>
 
     <table class="table table-striped table-hover">
@@ -33,14 +36,18 @@
                 <td>{{ $project->updated_at }}</td>
                 <td>
                   <div class="d-flex gap-2">
-                    <a href="{{ route('admin.projects.show', $project)}}" class="btn btn-sm btn-primary">
+                    <a href="{{ route('admin.projects.show', $project->id)}}" class="btn btn-sm btn-primary">
                       <i class="far fa-eye"></i>
+                    </a>
+                    <a href="{{ route('admin.projects.edit', $project->id)}}" class="btn btn-sm btn-secondary">
+                      <i class="fa-solid fa-pencil"></i>
                     </a>
                     <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" id="delete-form">
                       @csrf
                       @method('DELETE')
                       <button class="btn btn-sm btn-danger"><i class="far fa-trash-can"></i></button>
                     </form>
+                    
                   </div>
                 </td>
               </tr>
