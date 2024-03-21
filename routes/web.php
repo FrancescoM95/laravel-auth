@@ -36,7 +36,7 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     Route::delete('/projects/{project}/drop', [AdminProjectController::class, 'drop'])->name('projects.drop')->withTrashed();
 
     //* Rotte admin project
-    Route::resource('projects', AdminProjectController::class);
+    Route::resource('projects', AdminProjectController::class)->withTrashed(['show', 'edit', 'update']);
 });
 
 

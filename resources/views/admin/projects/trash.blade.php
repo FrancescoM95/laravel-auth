@@ -39,11 +39,11 @@
                         @method('PATCH')
                         <button type="submit" class="btn btn-success btn-sm"><i class="fa-solid fa-rotate-left"></i></button>
                     </form>
-                    {{-- TODO modifica da cestino--}}
-                    {{--  <a href="{{ route('admin.projects.edit', $project->id)}}" class="btn btn-sm btn-secondary">
+                    
+                     <a href="{{ route('admin.projects.edit', $project->id)}}" class="btn btn-sm btn-secondary">
                       <i class="fa-solid fa-pencil"></i>
                     </a> 
-                    --}}
+                   
                     <form action="{{ route('admin.projects.drop', $project->id) }}" method="POST" id="delete-form">
                         @csrf
                         @method('DELETE')
