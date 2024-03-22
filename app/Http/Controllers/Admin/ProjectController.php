@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -38,12 +40,15 @@ class ProjectController extends Controller
             [
                 'title' => ['required', 'string', Rule::unique('projects')],
                 'content' => 'required|string',
+                'image' => 'nullable|image|mimes:png,jpg,jpeg',
                 'programming_languages' => ['required', 'array', 'min:1'],
             ],
             [
                 'title.required' => 'Il titolo è obbligatorio.',
                 'title.unique' => 'Non possono esistere due progetti con lo stesso titolo.',
                 'content.required' => 'La descrizione è obbligatoria.',
+                'image.image' => 'Il file inserito non è un\'immagine.',
+                'image.mimes' => 'Le estensioni consentite sono .png, .jpg, .jpeg.',
                 'programming_languages.required' => 'È necessario indicare alemno un linguaggio di programmazione.',
             ]
         );
@@ -57,6 +62,11 @@ class ProjectController extends Controller
 
         $project->fill($data);
         $project->slug = Str::slug($project->title);
+
+        if (Arr::exists($data, 'image')) {
+            $img_url = Storage::putFile('project_images', $data['image']);
+            $project->image = $img_url;
+        }
 
         $project->save();
 
@@ -90,12 +100,15 @@ class ProjectController extends Controller
             [
                 'title' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
                 'content' => 'required|string',
+                'image' => 'nullable|image|mimes:png,jpg,jpeg',
                 'programming_languages' => ['required', 'array', 'min:1'],
             ],
             [
                 'title.required' => 'Il titolo è obbligatorio.',
                 'title.unique' => 'Non possono esistere due progetti con lo stesso titolo.',
                 'content.required' => 'La descrizione è obbligatoria.',
+                'image.image' => 'Il file inserito non è un\'immagine.',
+                'image.mimes' => 'Le estensioni consentite sono .png, .jpg, .jpeg.',
                 'programming_languages.required' => 'È necessario indicare alemno un linguaggio di programmazione.',
             ]
         );
@@ -104,6 +117,13 @@ class ProjectController extends Controller
 
         $programmingLanguages = $request->input('programming_languages', []);
         $data['programming_languages'] = implode(',', $programmingLanguages);
+
+        if (Arr::exists($data, 'image')) {
+            if ($project->image) Storage::delete($project->image);
+
+            $img_url = Storage::putFile('project_images', $data['image']);
+            $project->image = $img_url;
+        }
 
         $project->update($data);
 
@@ -142,6 +162,7 @@ class ProjectController extends Controller
 
     public function drop(project $project)
     {
+        if ($project->image) Storage::delete($project->image);
         $project->forceDelete();
 
         return to_route('admin.projects.trash')

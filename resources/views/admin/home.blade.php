@@ -18,6 +18,7 @@
                 <h3 class="card-title">{{ $project->title }}</h3>
             </div>
             <div class="card-body">
+                <img src="{{ $project->printImage() }}" class="card-img-top me-3 mb-3 img-fluid" alt="{{ $project->title }}">
                 <p class="card-text overflow-auto" style="height: 300px">{{ $project->content }}</p>
             </div>
             <div class="card-footer">

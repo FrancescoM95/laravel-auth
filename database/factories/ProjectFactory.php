@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
@@ -17,16 +18,23 @@ class ProjectFactory extends Factory
      */
     public function definition(): array
     {
-        $title = $this->faker->text(20);
 
-        $programmingLanguages = $this->faker->randomElements(['HTML', 'CSS', 'JavaScript', 'PHP'], rand(1, 4));
+        Storage::makeDirectory('project_images');
 
+        $title = fake()->text(20);
+        $slug =  Str::slug($title);
+
+        $programmingLanguages = fake()->randomElements(['HTML', 'CSS', 'JavaScript', 'PHP'], rand(1, 4));
         $programmingLanguagesString = implode(',', $programmingLanguages);
+
+        $img = fake()->image(null, 250, 250);
+        $img_url = Storage::putFileAs('project_images', $img, "$slug.png");
 
         return [
             'title' => $title,
-            'slug' => Str::slug($title),
-            'content' => $this->faker->paragraph(10, true),
+            'slug' => $slug,
+            'content' => fake()->paragraph(10, true),
+            'image' => $img_url,
             'programming_languages' => $programmingLanguagesString,
         ];
     }

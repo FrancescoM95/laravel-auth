@@ -11,16 +11,24 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card mb-4">
         <div class="card-body">
-          <h3 class="card-title">{{ $project->title }}</h3>
-          <p class="card-text">{{ $project->content }}</p>
+          <div class="d-flex">
+            <img src="{{ $project->printImage() }}" class="card-img-top me-3 mb-3 img-fluid" alt="{{ $project->title }}">
+            <div class="div">
+              <h3 class="card-title">{{ $project->title }}</h3>
+              <p class="card-text">{{ $project->content }}</p>
+            </div>
+          </div>
+          
+          
           <div>
             <strong>Linguaggi di programmazione:</strong>
             {{ $project->programming_languages }}.
           </div>
 
-          <div class="d-flex flex-column align-items-end gap-2">
+
+          <div class=" d-flex flex-column align-items-end gap-2">
             <div>
                 <strong>Data creazione:</strong>
                 {{ $project->getCreatedAt() }}
